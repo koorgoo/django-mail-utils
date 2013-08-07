@@ -1,0 +1,4 @@
+{{ recipient }}
+We are glad to inform that your template email message was formed.
+With respect,
+{{ sender }}
