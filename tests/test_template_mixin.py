@@ -2,6 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMessage
 from django.template import TemplateDoesNotExist
 from django.test import TestCase
+
 from mail_utils.messages import TemplateMessageMixin
 
 
