@@ -19,6 +19,13 @@ updated from constructor parameters.
 Also you can pass the template string like the constructor's ``body`` parameter.
 Then it will be used to render the real email's body.
 
+EnvelopedMessageMixin
+---------------------
+The mixin allows to predefine email parameters ``subject``, ``from_email``, ``to``,
+``cc`` and ``bcc``.
+
+Parameters may be overridden via ``__init__``.
+
 
 Installation
 ============
@@ -27,22 +34,32 @@ Install from GitHub:
     pip install git+git://github.com/koorgoo/django-mail-utils.git#egg=django-mail-utils
 ::
 
-Getting Started
-===============
-Import required mixins
+
+Examples
+========
+
+TemplateMessageMixin
+--------------------
 ::
 
     from mail_utils.messages import TemplateMessageMixin
     
-    # ...
-::
-
-Use mixins to create your own emails:
-::
-
-    from django.core.mail import EmailMessage
-    
     class RegistrationEmailMessage(TemplateMessageMixin, EmailMessage):
         # The template is used to render the email's body.
         template_name = 'emails/registration.html'       
+        template_context = {'from': 'Acme Corporation'}
+::
+
+EnvelopedMessageMixin
+---------------------
+::
+
+    from mail_utils.messages import EnvelopedMessageMixin
+    
+    class NotificationEmailMessage(EnvelopedMessageMixin, EmailMessage):
+        subject = 'Admin News'
+        from_email = ADMIN_EMAIL
+        to = COLLEGUES_EMAILS
+        # cc = [...]
+        # bcc = [...]
 ::
