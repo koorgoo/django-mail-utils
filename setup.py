@@ -1,22 +1,23 @@
+#!/usr/bin/env python
 from setuptools import setup
 
 
 setup(
     name='django-mail-utils',
-    version='0.1',
+    version='0.2',
     description='Django mail mixins and utilities',
     author='Dima Kurguzov',
     author_email='koorgoo@gmail.com',
     url='https://github.com/koorgoo/django-mail-utils/',
     license='MIT',
     packages=['mail_utils'],
-    install_requires=[],
+    install_requires=['django'],
     classifiers=[
         'Programming Language :: Python',
-        'Topic :: Sofware Development :: Libraries :: Python Modules',
-        'Framework :: Django',
         'Environment :: Web Environment',
+        'Framework :: Django',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2'
+        'Programming Language :: Python :: 3.3',
+        'Topic :: Sofware Development :: Libraries :: Python Modules',
     ],
 )
