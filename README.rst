@@ -29,9 +29,9 @@ Parameters may be overridden via ``__init__``.
 
 Installation
 ============
-Install from GitHub:
 ::
-    pip install git+git://github.com/koorgoo/django-mail-utils.git#egg=django-mail-utils
+
+    pip install django-mail-utils
 ::
 
 
@@ -45,7 +45,6 @@ TemplateMessageMixin
     from mail_utils.messages import TemplateMessageMixin
     
     class RegistrationEmailMessage(TemplateMessageMixin, EmailMessage):
-        # The template is used to render the email's body.
         template_name = 'emails/registration.html'       
         template_context = {'from': 'Acme Corporation'}
 ::
@@ -60,6 +59,6 @@ EnvelopedMessageMixin
         subject = 'Admin News'
         from_email = ADMIN_EMAIL
         to = COLLEGUES_EMAILS
-        # cc = [...]
-        # bcc = [...]
+        cc = CC_EMAILS
+        bcc = BCC_EMAILS
 ::
