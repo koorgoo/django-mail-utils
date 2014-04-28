@@ -12,8 +12,8 @@ class TemplateMessageMixin(object):
 
     def __init__(self, *args, **kwargs):
         self.template_name = kwargs.pop('template_name', self.template_name)
-        self.template_context.update(kwargs.pop('template_context',
-                                                self.template_context))
+        self.template_context = self.template_context.copy()
+        self.template_context.update(kwargs.pop('template_context', {}))
         self.content_subtype = self.get_content_subtype()
         kwargs['body'] = kwargs.pop('body', self.render_body())
         return super(TemplateMessageMixin, self).__init__(*args, **kwargs)

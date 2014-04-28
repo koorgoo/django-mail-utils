@@ -55,3 +55,8 @@ class TemplateMessageMixinTestCase(TestCase):
         msg = Message(template_context=context)
         self.assertIn('John Smith', msg.body)
         self.assertIn('Dima Kurguzov', msg.body)
+
+    def test_instance_does_not_override_original_context(self):
+        original = Message.template_context
+        instance = Message(template_context={'extra': 'value'})
+        self.assertNotEqual(original, instance.template_context)
