@@ -1,3 +1,7 @@
+import os
+
+from email.MIMEImage import MIMEImage
+
 from django.core.exceptions import ImproperlyConfigured
 from django.template import loader, Context
 from django.utils import six
@@ -80,3 +84,27 @@ class EnvelopedMessageMixin(object):
 
         super(EnvelopedMessageMixin, self).__init__(*args, **kwargs)
 
+
+class ImagesMixin(object):
+    mixed_subtype = 'related'
+    images_root = os.getcwd()
+    images = []
+
+    def __init__(self, *args, **kwargs):
+        super(ImagesMixin, self).__init__(*args, **kwargs)
+
+        for image in self.images:
+            filepath = os.path.join(self.images_root, image)
+
+            if not os.path.exists(filepath):
+                raise ImproperlyConfigured("ImagesMixin could not find "
+                   " a file: {}".format(filepath))
+
+            content = open(filepath, 'rb').read()
+            _, filename = os.path.split(image)
+            _, ext = os.path.splitext(filename)
+
+            img = MIMEImage(content, ext[1:])
+            img.add_header('Content-ID', '<%s>' % image)
+
+            self.attach(img)
