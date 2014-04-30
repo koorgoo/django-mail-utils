@@ -3,7 +3,7 @@ from django.core.mail import EmailMessage
 from django.template import TemplateDoesNotExist
 from django.test import TestCase
 
-from mail_utils.messages import TemplateMixin
+from mail_utils import TemplateMixin
 
 
 class TemplatelessMessage(TemplateMixin, EmailMessage):
@@ -59,3 +59,19 @@ class TemplateMixinTestCase(TestCase):
         original = Message.template_context
         instance = Message(template_context={'extra': 'value'})
         self.assertNotEqual(original, instance.template_context)
+
+
+import warnings
+from mail_utils import TemplateMessageMixin
+
+
+class OldMessage(TemplateMessageMixin, EmailMessage):
+    template_name = 'email.html'
+
+
+class TemplateMessageMixinTestCase(TestCase):
+    def test_warning(self):
+        warnings.simplefilter('always')
+        with warnings.catch_warnings(record=True) as w:
+            OldMessage()
+            assert len(w) == 1

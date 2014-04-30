@@ -2,7 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMessage
 from django.test import TestCase
 
-from mail_utils.messages import EnvelopeMixin
+from mail_utils import EnvelopeMixin
 
 
 class Message(EnvelopeMixin, EmailMessage):
@@ -13,7 +13,7 @@ class Message(EnvelopeMixin, EmailMessage):
     from_email = 'from'
 
 
-class EnvelopedMessageMixinTestCase(TestCase):
+class EnvelopeMixinTestCase(TestCase):
     def test_use_subject_class_field(self):
         self.assertEqual('Test', Message().subject)
 
@@ -43,3 +43,19 @@ class EnvelopedMessageMixinTestCase(TestCase):
 
     def test_overridden_params(self):
         self.assertEqual(['kate'], Message(bcc=['kate']).bcc)
+
+
+import warnings
+from mail_utils import EnvelopedMessageMixin
+
+
+class OldMessage(EnvelopedMessageMixin, EmailMessage):
+    pass
+
+
+class EnvelopedMessageMixinTestCase(TestCase):
+    def test_warning(self):
+        warnings.simplefilter('always')
+        with warnings.catch_warnings(record=True) as w:
+            OldMessage()
+            assert len(w) == 1

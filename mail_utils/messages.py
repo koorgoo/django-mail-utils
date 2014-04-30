@@ -116,13 +116,17 @@ class ImagesMixin(object):
 
 class TemplateMessageMixin(TemplateMixin):
     def __init__(self, *args, **kwargs):
-        warnings.warn("`TemplateMessageMixin` is deprecated, " +
-            "use `TemplateMixin` instead.")
+        warnings.warn(
+            "`TemplateMessageMixin` is deprecated, use `TemplateMixin` instead.",
+            PendingDeprecationWarning
+        )
         TemplateMixin.__init__(self, *args, **kwargs)
 
 
 class EnvelopedMessageMixin(EnvelopeMixin):
     def __init__(self, *args, **kwargs):
-        warnings.warn("EnvelopedMessageMixin class is deprecated." +
-            "Use EnvelopeMixin .")
+        warnings.warn(
+            "`EnvelopedMessageMixin` is deprecated, use `EnvelopeMixin` instead.",
+            PendingDeprecationWarning
+        )
         EnvelopeMixin.__init__(self, *args, **kwargs)
