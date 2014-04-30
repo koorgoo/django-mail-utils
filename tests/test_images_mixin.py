@@ -23,7 +23,7 @@ class ImagesMixinTestCase(TestCase):
 
     def test_raise_exception_when_image_not_found(self):
         with self.assertRaises(ImproperlyConfigured):
-            InvalidMessage().send()
+            InvalidMessage()
 
     def test_attached_images(self):
         msg = Message()

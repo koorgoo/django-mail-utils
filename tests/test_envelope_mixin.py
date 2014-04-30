@@ -2,10 +2,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMessage
 from django.test import TestCase
 
-from mail_utils.messages import EnvelopedMessageMixin
+from mail_utils.messages import EnvelopeMixin
 
 
-class Message(EnvelopedMessageMixin, EmailMessage):
+class Message(EnvelopeMixin, EmailMessage):
     to = 'to'
     cc = 'cc'
     bcc = 'bcc'

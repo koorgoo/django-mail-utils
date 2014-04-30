@@ -1,4 +1,5 @@
 import os
+import warnings
 
 from email.MIMEImage import MIMEImage
 
@@ -7,7 +8,7 @@ from django.template import loader, Context
 from django.utils import six
 
 
-class TemplateMessageMixin(object):
+class TemplateMixin(object):
     """ Email message mixin to provide template functionality.
         Must be inherited before EmailMessage class.
     """
@@ -20,7 +21,7 @@ class TemplateMessageMixin(object):
         self.template_context.update(kwargs.pop('template_context', {}))
         self.content_subtype = self.get_content_subtype()
         kwargs['body'] = kwargs.pop('body', self.render_body())
-        return super(TemplateMessageMixin, self).__init__(*args, **kwargs)
+        return super(TemplateMixin, self).__init__(*args, **kwargs)
 
     def render_body(self):
         template_name = self.get_template_name()
@@ -43,7 +44,7 @@ class TemplateMessageMixin(object):
         return 'html' if template.endswith('.html') else 'plain'
 
 
-class EnvelopedMessageMixin(object):
+class EnvelopeMixin(object):
     """ Email message mixin to provide predefined parameters.
     """
     subject = ''
@@ -82,7 +83,7 @@ class EnvelopedMessageMixin(object):
         kwargs.setdefault('cc', cc)
         kwargs.setdefault('bcc', bcc)
 
-        super(EnvelopedMessageMixin, self).__init__(*args, **kwargs)
+        super(EnvelopeMixin, self).__init__(*args, **kwargs)
 
 
 class ImagesMixin(object):
@@ -98,7 +99,7 @@ class ImagesMixin(object):
 
             if not os.path.exists(filepath):
                 raise ImproperlyConfigured("ImagesMixin could not find "
-                   " a file: {}".format(filepath))
+                   "a file: {}".format(filepath))
 
             content = open(filepath, 'rb').read()
             _, filename = os.path.split(image)
@@ -108,3 +109,20 @@ class ImagesMixin(object):
             img.add_header('Content-ID', '<%s>' % image)
 
             self.attach(img)
+
+
+# Legacy class names.
+# Should be remove in future.
+
+class TemplateMessageMixin(TemplateMixin):
+    def __init__(self, *args, **kwargs):
+        warnings.warn("`TemplateMessageMixin` is deprecated, " +
+            "use `TemplateMixin` instead.")
+        TemplateMixin.__init__(self, *args, **kwargs)
+
+
+class EnvelopedMessageMixin(EnvelopeMixin):
+    def __init__(self, *args, **kwargs):
+        warnings.warn("EnvelopedMessageMixin class is deprecated." +
+            "Use EnvelopeMixin .")
+        EnvelopeMixin.__init__(self, *args, **kwargs)

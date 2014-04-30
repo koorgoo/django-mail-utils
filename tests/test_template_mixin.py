@@ -3,20 +3,19 @@ from django.core.mail import EmailMessage
 from django.template import TemplateDoesNotExist
 from django.test import TestCase
 
-from mail_utils.messages import TemplateMessageMixin
+from mail_utils.messages import TemplateMixin
 
 
-class TemplatelessMessage(TemplateMessageMixin, EmailMessage):
+class TemplatelessMessage(TemplateMixin, EmailMessage):
     template_name = None
 
 
-class Message(TemplateMessageMixin, EmailMessage):
-    template_context = {'reason': 'Test',
-                        'sender': 'Dima Kurguzov'}
+class Message(TemplateMixin, EmailMessage):
+    template_context = {'reason': 'Test', 'sender': 'Dima Kurguzov'}
     template_name = 'email.html'
 
 
-class TemplateMessageMixinTestCase(TestCase):
+class TemplateMixinTestCase(TestCase):
     def test_exception_when_template_name_is_not_set(self):
         with self.assertRaises(ImproperlyConfigured):
             TemplatelessMessage()
