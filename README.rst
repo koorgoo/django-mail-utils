@@ -21,10 +21,15 @@ Then it will be used to render the real email's body.
 
 EnvelopeMixin
 -------------
-The mixin allows to predefine email parameters ``subject``, ``from_email``, ``to``,
-``cc`` and ``bcc``.
+The mixin allows to predefine email parameters in class fields.
 
-Parameters may be overridden via ``__init__``.
+| ``subject`` - string
+| ``from_email`` - string
+| ``to`` - string or list/tuple
+| ``cc`` - string or list/tuple
+| ``bcc`` - string or list/tuple
+
+Parameters may be overridden in ``__init__``ialization.
 
 ImagesMixin
 -----------

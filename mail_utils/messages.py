@@ -54,34 +54,36 @@ class EnvelopeMixin(object):
     bcc = None
 
     def __init__(self, *args, **kwargs):
-        subject = getattr(self, 'subject', '')
-        from_email = getattr(self, 'from_email', None)
-
         types = tuple(list(six.string_types) + [list, tuple])
 
-        to = getattr(self, 'to', None)
+        def kwargs_or_self(key):
+            return kwargs.get(key, getattr(self, key, None))
+
+        to = kwargs_or_self('to')
         if to:
             assert isinstance(to, types), '"to" argument must be a string, a list or tuple'
             if isinstance(to, six.string_types):
                 to = [to]
 
-        cc = getattr(self, 'cc', None)
+        cc = kwargs_or_self('cc')
         if cc:
             assert isinstance(cc, types), '"cc" argument must be a string, a list or tuple'
             if isinstance(cc, six.string_types):
                 cc = [cc]
 
-        bcc = getattr(self, 'bcc', None)
+        bcc = kwargs_or_self('bcc')
         if bcc:
             assert isinstance(bcc, types), '"bcc" argument must be a string, a list or tuple'
             if isinstance(bcc, six.string_types):
                 bcc = [bcc]
 
-        kwargs.setdefault('subject', subject)
-        kwargs.setdefault('from_email', from_email)
-        kwargs.setdefault('to', to)
-        kwargs.setdefault('cc', cc)
-        kwargs.setdefault('bcc', bcc)
+        kwargs.update({
+            'subject': kwargs_or_self('subject'),
+            'from_email': kwargs_or_self('from_email'),
+            'to': to,
+            'cc': cc,
+            'bcc': bcc,
+        })
 
         super(EnvelopeMixin, self).__init__(*args, **kwargs)
 

@@ -14,35 +14,44 @@ class Message(EnvelopeMixin, EmailMessage):
 
 
 class EnvelopeMixinTestCase(TestCase):
-    def test_use_subject_class_field(self):
+    def test_subject(self):
         self.assertEqual('Test', Message().subject)
 
-    def test_use_from_email_class_field(self):
+    def test_from_email(self):
         self.assertEqual('from', Message().from_email)
 
-    def test_use_to_class_field(self):
+    def test_to(self):
         self.assertEqual(['to'], Message().to)
 
-    def test_use_cc_class_field(self):
+    def test_cc(self):
         self.assertEqual(['cc'], Message().cc)
 
-    def test_use_bcc_class_field(self):
+    def test_bcc(self):
         self.assertEqual(['bcc'], Message().bcc)
 
-    def test_use_subject_param_instead_of_field(self):
+    def test_override_subject(self):
         self.assertEqual('New', Message(subject='New').subject)
 
-    def test_use_from_email_param_instead_of_field(self):
+    def test_override_from_email(self):
         self.assertEqual('john', Message(from_email='john').from_email)
 
-    def test_use_to_param_instead_of_field(self):
+    def test_override_to(self):
         self.assertEqual(['jane'], Message(to=['jane']).to)
 
-    def test_overridden_params(self):
+    def test_override_cc(self):
         self.assertEqual(['bob'], Message(cc=['bob']).cc)
 
-    def test_overridden_params(self):
+    def test_override_bcc(self):
         self.assertEqual(['kate'], Message(bcc=['kate']).bcc)
+
+    def test_accept_string_and_override_to(self):
+        self.assertEqual(['jane'], Message(to='jane').to)
+
+    def test_accept_string_and_override_cc(self):
+        self.assertEqual(['bob'], Message(cc='bob').cc)
+
+    def test_accept_string_and_override_bcc(self):
+        self.assertEqual(['kate'], Message(bcc='kate').bcc)
 
 
 import warnings
