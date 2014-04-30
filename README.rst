@@ -45,7 +45,7 @@ Installation
 Examples
 ========
 
-TemplateMessageMixin
+TemplateMixin
 --------------------
 ::
 
@@ -57,7 +57,7 @@ TemplateMessageMixin
         template_context = {'from': 'Acme Corporation'}
 ::
 
-EnvelopedMessageMixin
+EnvelopeMixin
 ---------------------
 ::
 
@@ -74,6 +74,7 @@ EnvelopedMessageMixin
 ImagesMixin
 -----------
 ::
+
     from mail_utils import TemplateMixin, ImagesMixin
 
     class CoolEmail(ImagesMixin, TemplateMixin, EmailMessage):
@@ -82,12 +83,11 @@ ImagesMixin
         images = ['logo.png', 'phone_icon.png']
 ::
 
-In HTML use ``cid:<path from images>`` to insert an image.
+In HTML use ``<img src="cid:<path from images>">`` to embed an image.
 
 ::
-    ...
+       
     <img src="cid:logo.png" /> Company
-    ...
+       
     <img src="cid:phone_icon.png"> Call us
-    ...
 ::
