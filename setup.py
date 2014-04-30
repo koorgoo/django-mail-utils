@@ -4,8 +4,9 @@ from setuptools import setup
 
 setup(
     name='django-mail-utils',
-    version='0.2.1',
+    version='0.3',
     description='Django mail mixins and utilities',
+    long_description=open('README.rst').read(),
     author='Dima Kurguzov',
     author_email='koorgoo@gmail.com',
     url='https://github.com/koorgoo/django-mail-utils/',

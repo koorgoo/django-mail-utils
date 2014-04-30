@@ -87,6 +87,8 @@ class EnvelopeMixin(object):
 
 
 class ImagesMixin(object):
+    """ Email message mixin to allow easy image embedding.
+    """
     mixed_subtype = 'related'
     images_root = os.getcwd()
     images = []
