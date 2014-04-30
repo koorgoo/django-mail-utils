@@ -29,7 +29,7 @@ The mixin allows to predefine email parameters in class fields.
 | ``cc`` - string or list/tuple
 | ``bcc`` - string or list/tuple
 
-Parameters may be overridden in ``__init__``ialization.
+Parameters may be overridden during initialization.
 
 ImagesMixin
 -----------
@@ -74,6 +74,10 @@ EnvelopeMixin
         to = COLLEGUES_EMAILS
         cc = CC_EMAILS
         bcc = BCC_EMAILS
+
+
+    # Override `to` 
+    NotificationEmail(to='me@example.com').send()
 ::
 
 ImagesMixin
