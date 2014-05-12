@@ -2,7 +2,22 @@
 django-mail-utils
 =================
 
+|VERSION|_ |DOWNLOAD|_
+
+.. |VERSION| image:: https://pypip.in/v/django-mail-utils/badge.png 
+.. _VERSION: https://pypi.python.org/pypi/django-mail-utils/
+
+.. |DOWNLOAD| image:: https://pypip.in/d/django-mail-utils/badge.png 
+.. _DOWNLOAD: https://pypi.python.org/pypi/django-mail-utils/
+
 Django mail mixins and utilities.
+
+Installation
+============
+::
+
+    pip install django-mail-utils
+::
 
 Contents
 ========
@@ -18,6 +33,14 @@ updated from constructor parameters.
 
 Also you can pass the template string like the constructor's ``body`` parameter.
 Then it will be used to render the real email's body.
+::
+
+    from mail_utils import TemplateMixin
+
+    class RegistrationEmail(TemplateMixin, EmailMessage):
+        template_name = 'emails/registration.html'       
+        template_context = {'from': 'Acme Corporation'}
+::
 
 EnvelopeMixin
 -------------
@@ -30,40 +53,6 @@ The mixin allows to predefine email parameters in class fields.
 | ``bcc`` - string or list/tuple
 
 Parameters may be overridden during initialization.
-
-ImagesMixin
------------
-The mixin allows to embed images into email via ``<img src="cid:<your image>">`` in HTML.
-To enable this functionality set ``images`` and ``images_root`` class fields.
-
-| ``images_root`` - a root path to resolve image paths (e.g. ``os.path.dirname(__file__)`` or ``os.getcwd()``)
-| ``images`` - a list of paths to images (e.g. ``['logo.png']`` or ``['email_images/logo.png']``)
-
-Installation
-============
-::
-
-    pip install django-mail-utils
-::
-
-
-Examples
-========
-
-TemplateMixin
---------------------
-::
-
-    from mail_utils import TemplateMixin
-
-    
-    class RegistrationEmail(TemplateMixin, EmailMessage):
-        template_name = 'emails/registration.html'       
-        template_context = {'from': 'Acme Corporation'}
-::
-
-EnvelopeMixin
----------------------
 ::
 
     from mail_utils import EnvelopeMixin
@@ -75,13 +64,17 @@ EnvelopeMixin
         cc = CC_EMAILS
         bcc = BCC_EMAILS
 
-
     # Override `to` 
     NotificationEmail(to='me@example.com').send()
 ::
 
 ImagesMixin
 -----------
+The mixin allows to embed images into email via ``<img src="cid:<your image>">`` in HTML.
+To enable this functionality set ``images`` and ``images_root`` class fields.
+
+| ``images_root`` - a root path to resolve image paths (e.g. ``os.path.dirname(__file__)`` or ``os.getcwd()``)
+| ``images`` - a list of paths to images (e.g. ``['logo.png']`` or ``['email_images/logo.png']``)
 ::
 
     from mail_utils import TemplateMixin, ImagesMixin
