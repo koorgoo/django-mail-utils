@@ -2,13 +2,8 @@
 django-mail-utils
 =================
 
-|VERSION|_ |DOWNLOAD|_
-
-.. |VERSION| image:: https://pypip.in/v/django-mail-utils/badge.png 
-.. _VERSION: https://pypi.python.org/pypi/django-mail-utils/
-
-.. |DOWNLOAD| image:: https://pypip.in/d/django-mail-utils/badge.png 
-.. _DOWNLOAD: https://pypi.python.org/pypi/django-mail-utils/
+.. image:: https://badge.fury.io/py/django-mail-utils.svg
+    :target: http://badge.fury.io/py/django-mail-utils
 
 Django mail mixins and utilities.
 
